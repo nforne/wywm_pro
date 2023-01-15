@@ -1,0 +1,35 @@
+/* last updated: Jan 14, 2023 by Martin */
+
+body {
+  background-color: rgba(63, 61, 61, 0.995);
+  font-family: 'Ubuntu', sans-serif;
+  color: rgb(213, 207, 207);
+  text-align: justify;
+}
+
+button {
+  background-color: rgba(158, 242, 203, 0.685);
+  border: 2px solid rgb(9, 163, 241);
+  border-radius: 5px;
+}
+
+button:hover {
+  border: 3px solid black;
+}
+
+input[placeholder] {
+  color: blue;
+  font-size: x-small;
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.header div span {
+  font-size: 5em;
+}

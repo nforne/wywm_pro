@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="wywm.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
   <title>wywm_pro</title>
-  <!-- Last Updated: v1, Jan 13, 2023 -->
+  <!-- Last Updated: v1, Jan 13, 2023 by Martin-->
 </head>
 <body>
 <header class="header">
@@ -57,12 +61,7 @@
 
   <button>
     <label for="#-OF-PICTURES">#-OF-PICTURES</label>
-    <select name="#-OF-PICTURES" id="#-OF-PICTURES">
-        <option></option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
+    <input type="number" id="#-OF-PICTURES" name="#-OF-PICTURES" min="1" max="3" placeholder="#-of-pictures">
   </button>
   
 </div>
@@ -70,13 +69,13 @@
 
 <div class="display_area">
   <div class="left_nav_pane">
-    <button>Section_1</button>
-    <button>Section_2</button>
-    <button>Section_3</button>
-    <button>Section_4</button>
-    <button>Section_5</button>
-    <button>Section_6</button>
-    <button>Section_7</button>
+    <button>SECTION_A</button>
+    <button>SECTION_B</button>
+    <button>SECTION_C</button>
+    <button>SECTION_D</button>
+    <button>SECTION_E</button>
+    <button>SECTION_F</button>
+    <button>SECTION_G</button>
   </div>
   
   <div class="display_boxes">
@@ -109,11 +108,13 @@
     <div class="view_options">
       <button>GRID</button>
       <button>SLIDE</button>
-      <button>ZOOM-IN</button>
-      <button>ZOOM-OUT</button>
+      <button>ZOOM +</button>
+      <button>ZOOM -</button>
     </div>
     <div>
+      <hr>
       <p>External Links</p>
+      <hr>
     </div>
   </div>
   
