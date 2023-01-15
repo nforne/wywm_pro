@@ -22,12 +22,37 @@ input[placeholder] {
   font-size: x-small;
 }
 
-.header{
+.header {
   display: flex;
   flex-direction: row;
   align-self: center;
   justify-items: center;
   justify-content: space-between;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-items: center;
+  justify-content: space-around;
+}
+
+.search_field, .site_menus {
+  width: 100%;
+}
+
+.search_field form {
+  padding: 6px 10px;
+  background: #ddd;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.search_field form input[type=text] {
+  font-size: 1em;
+  cursor: pointer;
+  width: 85%;
 }
 
 .header div span {

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>wywm_pro</title>
   <!-- Last Updated: v1, Jan 13, 2023 by Martin-->
 </head>
@@ -16,7 +17,7 @@
   <div>
     <span>DOGS</span>
   </div>
-  <div>
+  <div class="home">
     <div class="site_menus">
       <button>HOME</button>
       <button>ABOUT DOGS</button>
@@ -24,7 +25,10 @@
       <button>CONTACT US</button>
     </div>
     <div class="search_field">
-      <input type="text" placeholder="Search..">
+      <form action="">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
     </div>
   </div>
 </header>
