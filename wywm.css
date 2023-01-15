@@ -30,7 +30,7 @@ input[placeholder] {
   justify-content: space-between;
 }
 
-.home {
+.home, .view_options {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -38,7 +38,7 @@ input[placeholder] {
   justify-content: space-around;
 }
 
-.search_field, .site_menus {
+.search_field, .site_menus, .display_options {
   width: 100%;
 }
 
@@ -57,4 +57,42 @@ input[placeholder] {
 
 .header div span {
   font-size: 5em;
+}
+
+.display_area, .display_options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.left_nav_pane, .right_nav_pane {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin-top: 5.5em;
+  width: 20%;
+}
+
+.display_boxes, .views {
+  width: 80%;
+}
+
+.left_nav_pane button, .view_options button, .display {
+  text-align: center;
+  margin: 1em;
+  padding: 1em;
+}
+
+.views, .extras {
+  display: flex;
+  flex-direction: column;
+}
+
+.extras {
+  margin: 1em;
+}
+
+.views {
+  border-left: 0.5em dashed gray;
 }
