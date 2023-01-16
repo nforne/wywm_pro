@@ -15,7 +15,7 @@
 <body id="body">
 <header  class="header">
   <div>
-    <span style="font-family:'Bokor', cursive; color: gray;">--|🐱 <a href="#body" style="color: rgb(57, 181, 224);">P-E-T-S <b style="color: rgb(71, 139, 71);">!</b></a> 🐰|--</span> 
+    <span style="font-family:'Bokor', cursive; color: rgb(45, 43, 43); text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;">--|🐱 <a href="#body" style="color: rgb(45, 43, 43);">P-E-T-S <b style="color: white; -webkit-text-stroke: 2px black;">!</b></a> 🐰|--</span> 
   </div>
   <div class="home">
     <div class="site_menus">
@@ -32,7 +32,7 @@
     </div>
   </div>
 </header>
-<hr>
+<hr class="hr">
 <div class="home_menus" style="text-align: center;">
 
   <button>
@@ -59,14 +59,17 @@
     <label for="PICTURE-OPTIONS">PICTURE-OPTIONS</label>
     <select name="PICTURE-OPTIONS" id="PICTURE-OPTIONS">
        <option></option>
+       <option value="random">- ALL 🐰 -</option>
        <option value="random">RANDOM</option>
      </select>
   </button>
 
   <button>
     <label for="#-OF-PICTURES">#-OF-PICTURES</label>
-    <input type="number" id="#-OF-PICTURES" name="#-OF-PICTURES" min="1" max="3" placeholder="#-of-pictures">
+    <input type="number" id="#-OF-PICTURES" name="#-OF-PICTURES" min="1" max="5" placeholder="#-of-pictures">
   </button>
+
+  <button>GO | 🐰 <i class="fa fa-angle-double-right fa-lg" aria-hidden="true"></i></button>
   
 </div>
 
@@ -125,7 +128,7 @@
 </div>
 
 <footer class="xt_links">
-  <hr>
+  <hr class="hr">
   <span>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
     ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
