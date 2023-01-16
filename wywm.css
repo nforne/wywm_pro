@@ -1,15 +1,18 @@
 /* last updated: Jan 14, 2023 by Martin */
 
 body {
-  background-color: rgba(63, 61, 61, 0.995);
+  background-color: rgba(232, 226, 226, 0.995);
   font-family: 'Ubuntu', sans-serif;
-  color: rgb(213, 207, 207);
+  color: rgb(86, 83, 83);
   text-align: justify;
+  height: 100%;
 }
 
 button {
   background-color: rgba(158, 242, 203, 0.685);
   border: 2px solid rgb(9, 163, 241);
+  font-family: 'Ubuntu', sans-serif;
+  color: rgb(50, 50, 50);
   border-radius: 5px;
 }
 
@@ -47,7 +50,7 @@ input[placeholder] {
 
 .search_field form {
   padding: 0.1em;
-  background: #ddd;
+  background: rgb(156, 155, 155);
   border-radius: 5px;
   text-align: center;
 }
@@ -81,7 +84,7 @@ input[placeholder] {
   width: 80%;
 }
 
-.left_nav_pane button, .view_options button, .display, .xt_links {
+.left_nav_pane button, .view_options button, .display {
   text-align: center;
   margin: 1em;
   padding: 1em;
@@ -96,7 +99,12 @@ input[placeholder] {
   margin: 1em;
 }
 
+.xt_links {
+  text-align: center;
+  margin: 1em;
+}
+
 .views {
   border-left: 0.01em dashed gray;
-  box-shadow: inset;
+  /* border-radius: 10px; */
 }
