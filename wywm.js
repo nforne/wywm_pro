@@ -1,6 +1,8 @@
 // Request data from api
 
-const url = (breed = '', options = '', num = '') => {
+let returnedData = {}
+
+const url = (data = '', breed = '', options = '', num = '') => {
   // url constructor, template logic 
   if (options && !breed){
     alert('You can specify the #-of-pictures - upto 5, else you get only 1, if available!')
@@ -16,6 +18,12 @@ const url = (breed = '', options = '', num = '') => {
     // render sub-breed active if available else inactive
     alert('Specify the breed and or sub-breed if you prefer to be specific, otherwise it\'s optional!')
     let subBreed = ''
+    if (data && data[breed].length > 0) {
+      subBreed = document.getElementById('SUB-BREED').value;
+    } else if (data && data[breed].length === 0) {
+      // deactivate sub-breed menu
+      document.getElementById("SUB-BREED").disabled = true;
+    }
     if (subBreed) {
       if (options == 'random') {
         // Multiple images from a sub-breed collection as available
@@ -39,19 +47,51 @@ const url = (breed = '', options = '', num = '') => {
     return 'https://dog.ceo/api/breeds/list/all'
   }
 }
-const data = async (url) => {
-  try {
-    const res = await fetch(url)
-    // returned data management logic
+
+
+const data = (url) => {
+  return fetch(url).then(res => {
     // check for ok response code
     if (res.status == 200) {
       // get the response in json format
-      res.json()
-      // log the message part of the response
-      console.log(`The api returned: ${data.message}`)
+      return res.json() 
     }
-  } catch (e) {
-    // catch and log any errors
+  }).catch((e) => {
     console.log(e)
+  })
+}
+
+// function to create option elements and append them
+const appendOptions = (breedOrSub, options) => {
+  for (let dog of options) {
+    let option = document.createElement('option');
+    option.textContent = dog;
+    breedOrSub.appendChild(option)
   }
 }
+
+
+window.addEventListener('load', () => {
+  
+  data(url()).then((res) => {
+    returnedData = {...res.message};
+    const breed = document.getElementById('BREED');
+    const subBreed = document.getElementById('SUB-BREED');
+
+    let breeds = [...Object.keys(returnedData)];
+    appendOptions(breed, breeds)
+
+    breed.addEventListener('change', () => {
+      if (returnedData[breed.value].length > 0) {
+        subBreed.disabled = false;
+        let subBreeds = [...returnedData[breed.value]];
+        appendOptions(subBreed, subBreeds)
+      } else if (returnedData[breed.value].length === 0) {
+        subBreed.disabled = true;
+      }
+    } ,false) ; 
+
+  })
+})
+
+
