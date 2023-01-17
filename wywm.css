@@ -107,7 +107,7 @@ input[placeholder] {
 }
 
 .views {
-  background-color: rgb(178, 220, 220);
+  background-color: rgb(156, 196, 196);
   border: 2px solid black;
   border-radius: 10px;
   padding: 2em;
@@ -116,4 +116,35 @@ input[placeholder] {
 
 .hr {
   border: 2px dashed black;
+}
+
+.message p {
+  font-family: 'Ubuntu', sans-serif;
+  color: rgb(123, 20, 8);
+  border: 2px dashed gray;
+  border-radius: 10px;
+  width: 95%;
+  text-align: center;
+  align-self: center;
+  align-items: center;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
+.imgs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.imgs img {
+  margin: 1em;
+  padding: 0.5em;
+  border-radius: 10px;
+  height: 70%;
+  width: 70%;
+  border-radius: 10px; 
+  border: 2px solid black;
 }
