@@ -142,7 +142,6 @@ const slideRight = (images) => {
 }
 
 const zoomIn = () => {
-  console.log('zoomIn', zoomTracker) // =====================================================================
   const imgsBox = document.getElementById('imgs');
   imgsBox.classList.remove(`zoom${zoomTracker}`)
   if (zoomTracker < 7) {
@@ -155,7 +154,6 @@ const zoomIn = () => {
 }
 
 const zoomOut = () => {
-  console.log('zoomOut', zoomTracker) // =====================================================================
   const imgsBox = document.getElementById('imgs');
   imgsBox.classList.remove(`zoom${zoomTracker}`)
   if (zoomTracker > 1) {
