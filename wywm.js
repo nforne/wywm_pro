@@ -4,6 +4,7 @@ let returnedData = {}; // breeds and sub-breeds
 let userInput = {data: '', breed: '', subBreed: '', options:'', num:''}
 let images = []; // current array of fetched images
 let slideTracker = 0; // to track and controle images when in slide view
+let zoomTracker = 0;
 
 // message function to display messages for ten seconds
 const message = (msg) => {  
@@ -111,10 +112,10 @@ const appendImg = (imgs) => {
 }
 
 const slideLeft = (images) => {
-  console.log('these click imgL ==>', images) // ===================================
   if (slideTracker >= 1) {
     slideTracker -= 1;
   } else {
+    message('That was all. Try sliding to the Right!')
     return;
   }
   const rowBox1 = document.getElementById('rowBox1')
@@ -126,10 +127,10 @@ const slideLeft = (images) => {
 }
 
 const slideRight = (images) => {
-  console.log('these click imgR ==>', images) // ===================================
   if (slideTracker < images.length - 1) {
     slideTracker += 1;
   } else {
+    message('That was all. Try sliding to the Left!')
     return;
   }
   const rowBox1 = document.getElementById('rowBox1')
@@ -141,11 +142,29 @@ const slideRight = (images) => {
 }
 
 const zoomIn = () => {
-
+  console.log('zoomIn', zoomTracker) // =====================================================================
+  const imgsBox = document.getElementById('imgs');
+  imgsBox.classList.remove(`zoom${zoomTracker}`)
+  if (zoomTracker < 7) {
+    zoomTracker += 1;
+  } else if (zoomTracker === 7 || zoomTracker === 0){
+    message('That was it. Try zooming out!')
+    return;
+  }
+  imgsBox.classList.add(`zoom${zoomTracker}`)
 }
 
 const zoomOut = () => {
-  
+  console.log('zoomOut', zoomTracker) // =====================================================================
+  const imgsBox = document.getElementById('imgs');
+  imgsBox.classList.remove(`zoom${zoomTracker}`)
+  if (zoomTracker > 1) {
+    zoomTracker -= 1;
+  } else if (zoomTracker === 1 || zoomTracker === 0){
+    message('That was it. Try zooming In!')
+    return;
+  }
+  imgsBox.classList.add(`zoom${zoomTracker}`)
 }
 
 let inputReset = ''; // to make user input reset availabe globally
@@ -242,9 +261,16 @@ window.addEventListener('load', () => {
     const go = document.getElementById('GO');
     const grid = document.getElementById('grid');
     const slide = document.getElementById('slide');
+    const zoomI = document.getElementById('zoomIn');
+    const zoomO = document.getElementById('zoomOut');
 
     inputReset = () => { // globalise user input reset
       // reset input upon search query fired - go
+      if (zoomTracker !== 0) {
+        const imgsBox = document.getElementById('imgs');
+        imgsBox.classList.remove(`zoom${zoomTracker}`)
+        zoomTracker = 0;
+      }
       userInput = {data: '', breed: '', subBreed: '', options:'', num:''};
       breed.value = '';
       subBreed.value = '';
@@ -309,6 +335,9 @@ window.addEventListener('load', () => {
       if (userInput.breed === '' && userInput.subBreed === '' && userInput.options ==='' && userInput.num ==='') {
         setDefaultImg();
         return;
+      } else if (userInput.breed === '' && userInput.subBreed === '' && userInput.options ==='' && userInput.num ) {
+        num.value = '';
+        return
       }
       data(url(userInput)).then((res) => {
         const returnedImages = Array.isArray(res.message) ? [...res.message] : [res.message];
@@ -341,6 +370,16 @@ window.addEventListener('load', () => {
 
     } ,false);
     
+    // capture zoomIn button click event
+    zoomI.addEventListener('click', () => {
+      zoomIn();
+    } ,false);
+    
+    // capture zoomOut button click event
+    zoomO.addEventListener('click', () => {
+      zoomOut();
+    } ,false);
+
   })
 })
 
