@@ -3,6 +3,7 @@
 let returnedData = {}; // breeds and sub-breeds
 let userInput = {data: '', breed: '', subBreed: '', options:'', num:''}
 let images = []; // current array of fetched images
+let slideTracker = 0; // to track and controle images when in slide view
 
 // message function to display messages for ten seconds
 const message = (msg) => {  
@@ -109,12 +110,34 @@ const appendImg = (imgs) => {
   }
 }
 
-const slideLeft = () => {
-
+const slideLeft = (images) => {
+  console.log('these click imgL ==>', images) // ===================================
+  if (slideTracker >= 1) {
+    slideTracker -= 1;
+  } else {
+    return;
+  }
+  const rowBox1 = document.getElementById('rowBox1')
+  rowBox1.innerHTML = '';
+  const img = document.createElement('img');
+  img.setAttribute('src', `${images[slideTracker]}`);
+  img.setAttribute('alt', `dog${slideTracker}`);
+  rowBox1.appendChild(img);
 }
 
-const slideRight = () => {
-  
+const slideRight = (images) => {
+  console.log('these click imgR ==>', images) // ===================================
+  if (slideTracker < images.length - 1) {
+    slideTracker += 1;
+  } else {
+    return;
+  }
+  const rowBox1 = document.getElementById('rowBox1')
+  rowBox1.innerHTML = '';
+  const img = document.createElement('img');
+  img.setAttribute('src', `${images[slideTracker]}`);
+  img.setAttribute('alt', `dog${slideTracker}`);
+  rowBox1.appendChild(img);
 }
 
 const zoomIn = () => {
@@ -178,10 +201,32 @@ const gridView = (images) => {
 }
 
 // to display fetched images on horizontal slides
-const slide = (images) => {
+const slideView = (images) => {
   const imgsBox = document.getElementById('imgs');
   imgsBox.innerHTML = '';
+  imgsBox.removeAttribute('class');
+  imgsBox.setAttribute('class', 'slide')
+  if (images.length <= 1) {
+    clearOutAndSet(images);
+    return
+  }
+  for (let i = 0; i < 3; i++) {
+    const rowBox = document.createElement('div');
+    rowBox.setAttribute('id', `rowBox${i}`);
+    rowBox.setAttribute('class', 'rowBox');
+    imgsBox.appendChild(rowBox);
+  }
+  const rowBox0 = document.getElementById('rowBox0')
+  rowBox0.innerHTML = '<i id="slideL" class="fa fa-angle-double-left fa-5x" aria-hidden="true"></i>';
   
+  const rowBox2 = document.getElementById('rowBox2')
+  rowBox2.innerHTML = '<i id="slideR" class="fa fa-angle-double-right fa-5x" aria-hidden="true"></i>';
+ 
+  const rowBox1 = document.getElementById('rowBox1')
+  const img = document.createElement('img');
+  img.setAttribute('src', `${images[slideTracker]}`);
+  img.setAttribute('alt', `dog${slideTracker}`);
+  rowBox1.appendChild(img);
 }
 
 
@@ -196,6 +241,7 @@ window.addEventListener('load', () => {
     const num = document.getElementById('#-OF-PICTURES');
     const go = document.getElementById('GO');
     const grid = document.getElementById('grid');
+    const slide = document.getElementById('slide');
 
     inputReset = () => { // globalise user input reset
       // reset input upon search query fired - go
@@ -205,6 +251,7 @@ window.addEventListener('load', () => {
       subBreed.disabled = true
       options.value = '';
       num.value = '';
+      slideTracker = 0;
     }
     
     // to populate the breed menu
@@ -259,12 +306,10 @@ window.addEventListener('load', () => {
 
     // capture go button click event
     go.addEventListener('click', () => {
-
       if (userInput.breed === '' && userInput.subBreed === '' && userInput.options ==='' && userInput.num ==='') {
         setDefaultImg();
         return;
       }
-
       data(url(userInput)).then((res) => {
         const returnedImages = Array.isArray(res.message) ? [...res.message] : [res.message];
         images = [...returnedImages] // update globally available most recently fetched images
@@ -277,6 +322,25 @@ window.addEventListener('load', () => {
       gridView(images);
     } ,false);
 
+    // capture slide button click event
+    slide.addEventListener('click', () => {
+      slideView(images);
+
+      const slideR = document.getElementById('slideR');
+      const slideL = document.getElementById('slideL');
+
+      // capture slideRight button click event
+      slideR.addEventListener('click', () => {
+        slideRight(images);
+      } ,false);
+      
+      // capture slideLeft button click event
+      slideL.addEventListener('click', () => {
+        slideLeft(images);
+      } ,false);
+
+    } ,false);
+    
   })
 })
 
