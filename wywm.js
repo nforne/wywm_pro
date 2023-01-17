@@ -1,7 +1,8 @@
 // Request data from api
 
-let returnedData = {}
-const userInput = {data: '', breed: '', subBreed: '', options:'', num:''}
+let returnedData = {}; // breeds and sub-breeds
+let userInput = {data: '', breed: '', subBreed: '', options:'', num:''}
+let images = []; // current array of fetched images
 
 // message function to display messages for ten seconds
 const message = (msg) => {  
@@ -67,6 +68,19 @@ const data = (url) => {
   })
 }
 
+// to return to default img
+const setDefaultImg = () => {
+  const imgsBox = document.getElementById('imgs');
+  imgsBox.innerHTML = '';
+  imgsBox.removeAttribute('class');
+  imgsBox.setAttribute('class', 'imgs');
+  const defaultImg = document.createElement('img')
+  defaultImg.setAttribute('src', 'mug_shot_cat.jpg');
+  defaultImg.setAttribute('alt', 'mug_shot_cat');
+  defaultImg.setAttribute('id', 'default');
+  imgsBox.appendChild(defaultImg);
+}
+
 // function to create option elements and append them
 const appendOptions = (breedOrSub, options) => {
   for (let dog of options) {
@@ -79,14 +93,95 @@ const appendOptions = (breedOrSub, options) => {
 // function to create img elements and append them
 const appendImg = (imgs) => {
   let index = 0;
+  const imgsBox = document.getElementById('imgs');
+  imgsBox.removeAttribute('class');
+  imgsBox.setAttribute('class', 'imgs')
+  if (imgs.length === 0) {
+    setDefaultImg();
+    return;
+  }
   for (let dog of imgs) {
-    const imgsBox = document.getElementById('imgs');
-    const option = document.createElement('img');
-    option.setAttribute('src', `${dog}`);
-    option.setAttribute('alt', `${'dog'+ String(index)}`);
-    imgsBox.appendChild(option);
+    const dogImg = document.createElement('img');
+    dogImg.setAttribute('src', `${dog}`);
+    dogImg.setAttribute('alt', `${'dog'+ String(index)}`);
+    imgsBox.appendChild(dogImg);
     index++
   }
+}
+
+const slideLeft = () => {
+
+}
+
+const slideRight = () => {
+  
+}
+
+const zoomIn = () => {
+
+}
+
+const zoomOut = () => {
+  
+}
+
+let inputReset = ''; // to make user input reset availabe globally
+
+// clear out old images on display
+const clearOutAndSet = (images) => {
+  const imgsBox = document.getElementById('imgs');
+  imgsBox.innerHTML = '';
+  imgsBox.removeAttribute('class');
+  imgsBox.setAttribute('class', 'imgs');
+  appendImg(images);
+  inputReset();
+}
+
+// to display fetched images in a grid
+const gridView = (images) => {
+  const imgsBox = document.getElementById('imgs');
+  imgsBox.innerHTML = '';
+  imgsBox.removeAttribute('class');
+  imgsBox.setAttribute('class', 'grid')
+  if (images.length <= 1) {
+    clearOutAndSet(images);
+    return
+  }
+  const columns = images.length >= 3 ? 3 : images.length
+  for (let i = 0; i < columns; i++) {
+    const columnBox = document.createElement('div');
+    columnBox.setAttribute('id', `columnBox${i}`);
+    columnBox.setAttribute('class', 'columnImgs');
+    if (columns === 2) {
+      columnBox.classList.add("two");
+    } else if (columns === 3) {
+      columnBox.classList.add("three");
+    }
+    imgsBox.appendChild(columnBox);
+  }
+
+  const distribution = Math.ceil(images.length / columns);
+  let numberOfImgs = 0;
+  let distributionTracker = 0;
+  while (distributionTracker < distribution && numberOfImgs !== images.length) {
+    for (let j = 0; j < columns; j++) {
+      if (numberOfImgs === images.length) break;
+      const columnBox = document.getElementById(`columnBox${j}`)
+      const img = document.createElement('img');
+      img.setAttribute('src', `${images[numberOfImgs]}`);
+      img.setAttribute('alt', `dog${numberOfImgs}`);
+      columnBox.appendChild(img);
+      numberOfImgs += 1;
+    }
+    distributionTracker ++;
+  }
+}
+
+// to display fetched images on horizontal slides
+const slide = (images) => {
+  const imgsBox = document.getElementById('imgs');
+  imgsBox.innerHTML = '';
+  
 }
 
 
@@ -100,6 +195,17 @@ window.addEventListener('load', () => {
     const options = document.getElementById('PICTURE-OPTIONS');
     const num = document.getElementById('#-OF-PICTURES');
     const go = document.getElementById('GO');
+    const grid = document.getElementById('grid');
+
+    inputReset = () => { // globalise user input reset
+      // reset input upon search query fired - go
+      userInput = {data: '', breed: '', subBreed: '', options:'', num:''};
+      breed.value = '';
+      subBreed.value = '';
+      subBreed.disabled = true
+      options.value = '';
+      num.value = '';
+    }
     
     // to populate the breed menu
     let breeds = [...Object.keys(returnedData)];
@@ -151,25 +257,24 @@ window.addEventListener('load', () => {
     } ,false);
 
 
-    // capture got button click event
+    // capture go button click event
     go.addEventListener('click', () => {
-      
-      data(url(userInput)).then((res) => {
-        console.log(res) //--------------------------------------------------------------------------
-        const returnedData = Array.isArray(res.message) ? [...res.message] : [res.message];        
-        console.log('these imgs ====>', returnedData) //======================================================
-        const defaultImg = document.getElementById('default');
-        defaultImg.setAttribute('hidden', 'hidden')
-        appendImg(returnedData);
 
-        // reset on search query fired
-         userInput = {data: '', breed: '', subBreed: '', options:'', num:''}
-         breed.value = '';
-         subBreed.value = '';
-         subBreed.disabled = true
-         options.value = '';
-         num.value = '';
+      if (userInput.breed === '' && userInput.subBreed === '' && userInput.options ==='' && userInput.num ==='') {
+        setDefaultImg();
+        return;
+      }
+
+      data(url(userInput)).then((res) => {
+        const returnedImages = Array.isArray(res.message) ? [...res.message] : [res.message];
+        images = [...returnedImages] // update globally available most recently fetched images
+        clearOutAndSet(images);
       })
+    } ,false);
+
+    // capture grid button click event
+    grid.addEventListener('click', () => {
+      gridView(images);
     } ,false);
 
   })

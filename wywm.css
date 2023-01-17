@@ -139,12 +139,29 @@ input[placeholder] {
   text-align: center;
 }
 
-.imgs img {
+.imgs img, .columnImgs img {
   margin: 1em;
   padding: 0.5em;
-  border-radius: 10px;
   height: 70%;
   width: 70%;
   border-radius: 10px; 
   border: 2px solid black;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+}
+
+.columnImgs {
+  display: flex;
+  flex-direction: column;
+}
+
+.two {
+  width: 50%;
+}
+
+.three {
+  width: 33%;
 }
