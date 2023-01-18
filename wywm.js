@@ -325,6 +325,7 @@ window.addEventListener('load', () => {
         const imgsBox = document.getElementById('imgs');
         imgsBox.classList.remove(`zoom${zoomTracker}`)
         zoomTracker = 0;
+        view = '';
       }
       userInput = {data: '', breed: '', subBreed: '', options:'', num:''};
       breed.value = '';
@@ -404,14 +405,14 @@ window.addEventListener('load', () => {
     // capture grid button click event
     grid.addEventListener('click', () => {
       view = 'grid';
-      zoomTracker = 6;
+      zoomTracker = 5;
       gridView(images);
     } ,false);
 
     // capture slide button click event
     slide.addEventListener('click', () => {
       view = 'slide';
-      zoomTracker = 5;
+      zoomTracker = 7;
       slideView(images);
 
       const slideR = document.getElementById('slideR');

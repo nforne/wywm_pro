@@ -137,6 +137,11 @@ input[placeholder] {
   padding: 0.5em;
 }
 
+/* .viewBox {
+  align-items: center;
+  align-content: center;
+} */
+
 .imgs {
   display: flex;
   flex-direction: column;
@@ -159,11 +164,13 @@ input[placeholder] {
 .grid {
   display: flex;
   flex-direction: row;
+  align-content: center;
 }
 
 .columnImgs {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .one {
@@ -214,9 +221,6 @@ input[placeholder] {
 .slide {
   display: flex;
   flex-direction: row;
-  text-align: center;
-  justify-items: center;
-  align-items: flex-start;
 }
 
 .zoom1 {
