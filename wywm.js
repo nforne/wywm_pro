@@ -4,6 +4,7 @@ let returnedData = {}; // breeds and sub-breeds
 let userInput = {data: '', breed: '', subBreed: '', options:'', num:''}
 let images = []; // current array of fetched images
 let slideTracker = 0; // to track and controle images when in slide view
+let view = ''; // grid or slide
 let zoomTracker = 0;
 
 // message function to display messages for ten seconds
@@ -142,27 +143,47 @@ const slideRight = (images) => {
 }
 
 const zoomIn = () => {
-  const imgsBox = document.getElementById('imgs');
-  imgsBox.classList.remove(`zoom${zoomTracker}`)
-  if (zoomTracker < 7) {
-    zoomTracker += 1;
-  } else if (zoomTracker === 7 || zoomTracker === 0){
-    message('That was it. Try zooming out!')
-    return;
+  zoomTracker += 1;
+  if (view === 'slide') {
+    if (zoomTracker > 5) {
+      message('That was it. Try zooming out!')
+      zoomTracker -= 1
+      return;
+    }
+    const imgsBox = document.getElementById('rowBox1');
+    imgsBox.classList.remove(`zoom${zoomTracker - 1}`);
+    imgsBox.classList.add(`zoom${zoomTracker}`);
   }
-  imgsBox.classList.add(`zoom${zoomTracker}`)
+  if (view === 'grid') {
+    if (zoomTracker > 6) {
+      message('That was it. Try zooming out!')
+      zoomTracker -= 1
+      return;
+    }
+    gridView(images);
+  }
 }
 
 const zoomOut = () => {
-  const imgsBox = document.getElementById('imgs');
-  imgsBox.classList.remove(`zoom${zoomTracker}`)
-  if (zoomTracker > 1) {
-    zoomTracker -= 1;
-  } else if (zoomTracker === 1 || zoomTracker === 0){
-    message('That was it. Try zooming In!')
-    return;
+  zoomTracker -= 1;
+  if (view === 'slide') {
+    if (zoomTracker < 1) {
+      message('That was it. Try zooming In!')
+      zoomTracker += 1
+      return;
+    }
+    const imgsBox = document.getElementById('rowBox1');
+    imgsBox.classList.remove(`zoom${zoomTracker + 1}`);
+    imgsBox.classList.add(`zoom${zoomTracker}`);
   }
-  imgsBox.classList.add(`zoom${zoomTracker}`)
+  if (view === 'grid') {
+    if (zoomTracker < 1) {
+      message('That was it. Try zooming In!')
+      zoomTracker += 1
+      return;
+    }
+    gridView(images);
+  }
 }
 
 let inputReset = ''; // to make user input reset availabe globally
@@ -187,15 +208,50 @@ const gridView = (images) => {
     clearOutAndSet(images);
     return
   }
-  const columns = images.length >= 3 ? 3 : images.length
+  let columns = '';
+  switch (zoomTracker) {
+    case 6:
+      columns = 1;
+      break;
+    case 5:
+      columns = 2;
+      break;
+    case 4:
+      columns = 3;
+      break;
+    case 3:
+      columns = 4;
+      break;
+    case 2:
+      columns = 5;
+      break;
+    case 1:
+      columns = 6;
+      break;
+  }
   for (let i = 0; i < columns; i++) {
     const columnBox = document.createElement('div');
     columnBox.setAttribute('id', `columnBox${i}`);
     columnBox.setAttribute('class', 'columnImgs');
-    if (columns === 2) {
-      columnBox.classList.add("two");
-    } else if (columns === 3) {
-      columnBox.classList.add("three");
+    switch (columns) {
+      case 1:
+        columnBox.classList.add("one");
+        break;
+      case 2:
+        columnBox.classList.add("two");
+        break;
+      case 3:
+        columnBox.classList.add("three");
+        break;
+      case 4:
+        columnBox.classList.add("four");
+        break;
+      case 5:
+        columnBox.classList.add("five");
+        break;
+      case 6:
+        columnBox.classList.add("six");
+        break;
     }
     imgsBox.appendChild(columnBox);
   }
@@ -240,6 +296,7 @@ const slideView = (images) => {
   rowBox2.innerHTML = '<i id="slideR" class="fa fa-angle-double-right fa-5x" aria-hidden="true"></i>';
  
   const rowBox1 = document.getElementById('rowBox1')
+  rowBox1.classList.add('zoom5')
   const img = document.createElement('img');
   img.setAttribute('src', `${images[slideTracker]}`);
   img.setAttribute('alt', `dog${slideTracker}`);
@@ -346,11 +403,15 @@ window.addEventListener('load', () => {
 
     // capture grid button click event
     grid.addEventListener('click', () => {
+      view = 'grid';
+      zoomTracker = 6;
       gridView(images);
     } ,false);
 
     // capture slide button click event
     slide.addEventListener('click', () => {
+      view = 'slide';
+      zoomTracker = 5;
       slideView(images);
 
       const slideR = document.getElementById('slideR');

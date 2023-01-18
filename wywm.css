@@ -144,6 +144,7 @@ input[placeholder] {
   align-items: center;
   text-align: center;
   align-self: center;
+  align-content: center;
 }
 
 .imgs img, .columnImgs img, .slide img {
@@ -165,12 +166,28 @@ input[placeholder] {
   flex-direction: column;
 }
 
+.one {
+  width: 100%;
+}
+
 .two {
   width: 50%;
 }
 
 .three {
   width: 33%;
+}
+
+.four {
+  width: 25%;
+}
+
+.five {
+  width: 20%;
+}
+
+.six {
+  width: 16%;
 }
 
 #rowBox0, #rowBox2 {
@@ -194,17 +211,12 @@ input[placeholder] {
   border: 0.01em solid greenyellow;
 }
 
-#rowBox1 {
-  width: 80%;
-}
-
 .slide {
   display: flex;
   flex-direction: row;
-}
-
-.zoom0 {
-  width: initial;
+  text-align: center;
+  justify-items: center;
+  align-items: flex-start;
 }
 
 .zoom1 {
@@ -232,5 +244,5 @@ input[placeholder] {
 }
 
 .zoom7 {
-  width: 100%;
+  width: initial;
 }
