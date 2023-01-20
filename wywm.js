@@ -7,6 +7,8 @@ let slideTracker = 0; // to track and controle images when in slide view
 let view = ''; // grid or slide
 let zoomTracker = 0;
 
+let inputReset = ''; // to make user input reset availabe globally
+
 // message function to display messages for ten seconds
 const message = (msg) => {  
   const  msge = document.getElementById('message');
@@ -186,8 +188,6 @@ const zoomOut = () => {
   }
 }
 
-let inputReset = ''; // to make user input reset availabe globally
-
 // clear out old images on display
 const clearOutAndSet = (images) => {
   const imgsBox = document.getElementById('imgs');
@@ -255,11 +255,9 @@ const gridView = (images) => {
     }
     imgsBox.appendChild(columnBox);
   }
-
-  const distribution = Math.ceil(images.length / columns);
+  
   let numberOfImgs = 0;
-  let distributionTracker = 0;
-  while (distributionTracker < distribution && numberOfImgs !== images.length) {
+  while (numberOfImgs !== images.length) {
     for (let j = 0; j < columns; j++) {
       if (numberOfImgs === images.length) break;
       const columnBox = document.getElementById(`columnBox${j}`)
@@ -269,7 +267,6 @@ const gridView = (images) => {
       columnBox.appendChild(img);
       numberOfImgs += 1;
     }
-    distributionTracker ++;
   }
 }
 
@@ -330,7 +327,7 @@ window.addEventListener('load', () => {
       userInput = {data: '', breed: '', subBreed: '', options:'', num:''};
       breed.value = '';
       subBreed.value = '';
-      subBreed.disabled = true
+      subBreed.disabled = true;
       options.value = '';
       num.value = '';
       slideTracker = 0;
